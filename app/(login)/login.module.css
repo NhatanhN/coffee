@@ -1,0 +1,75 @@
+.pageContainer {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mainContainer {
+    border-radius: 10px;
+    background-color: rgba(253, 252, 250, .7);
+    box-shadow: 0px 0px 8px black;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: column;
+    min-width: min(500px, 80%);
+    min-height: min(500px, 80%);
+    justify-content: space-around;
+}
+
+.inputContainer {
+    display: flex;
+    gap: 1rem;
+    background-color: rgb(226, 226, 226);
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: background-color .25s;
+}
+
+.inputContainer:hover {
+    background-color: var(--hover-gray);
+}
+
+.formInput {
+    background-color: transparent;
+    border: none;
+    flex-grow: 1;
+}
+
+.formInput:focus {
+    outline: none;
+}
+
+.formButton {
+    width: 100%;
+    background-color: var(--color-dark-blue-one);
+    color: white;
+    padding: 6px;
+    border: none;
+    border-radius: 10px;
+    margin: 20px 0px;
+    transition: background-color .25s;
+    font-size: .8rem;
+    padding: 8px 0px;
+}
+
+.formButton:hover {
+    background-color: var(--color-dark-blue-hover);
+    cursor: pointer;
+}
+
+.formContainer{ 
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.link {
+    color: gray;
+}
+
+.link:visited {
+    color: gray;
+}
