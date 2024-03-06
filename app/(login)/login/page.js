@@ -1,11 +1,36 @@
+"use client"
+
 import Link from "next/link";
 import styles from "../login.module.css"
 
 export default function Login() {
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+
+        const payload = {
+            username: e.target.username.value,
+            password: e.target.password.value
+        }
+        console.log(payload)
+
+        /**
+         * 
+        const res = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        })
+         */
+        // make sure to set the action attribute on the form
+        // make sure to set the proper keys for sessionStorage
+        
+    }
+
     return (
         <>
         <h2>Sign In</h2>
-        <form className={styles.formContainer} method="POST">
+        {/**set action attribute on this form */}
+        <form action="" onSubmit={handleLogin} className={styles.formContainer} method="POST">
             <label htmlFor="username">Username</label>
             <div className={styles.inputContainer}>
                 <p>👤</p>

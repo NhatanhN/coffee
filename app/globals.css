@@ -1,8 +1,8 @@
 :root {
   font-size: 20px;
-  --color-light-one: #f5f4f6;
+  --color-light-one: #f0f0f0;
   --color-off-white: #faf9f0;
-  --color-dark-blue-one: rgb(28, 53, 100);
+  --color-dark-blue-one: #313d5c;
   --color-dark-blue-hover: rgb(36, 68, 128);
   --hover-gray: rgb(218, 218, 218)
 }
@@ -14,8 +14,5 @@
 }
 
 body {
-  background: linear-gradient(
-    175deg, 
-    var(--color-light-one) 0%, 
-    var(--color-off-white) 100%);
+  background: var(--color-light-one);
 }
