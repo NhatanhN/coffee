@@ -1,7 +1,7 @@
 .container {
     background: var(--color-dark-blue-one);
     color: var(--color-light-one);
-    min-height: 2.5rem;
+    height: 2.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +24,11 @@
 .end {
     display: flex;
     gap: 1rem;
+    height: 1.7rem;
+}
+
+.homepageLink {
+    text-decoration: none;
 }
 
 .link {
@@ -32,6 +37,10 @@
     transition: background-color .25s;
     padding: 5px 8px;
     border-radius: 30px;
+}
+
+.linkPlacerholder {
+    min-width: 4rem;
 }
 
 .link:hover {

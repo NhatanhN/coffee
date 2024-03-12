@@ -6,11 +6,16 @@ import "../globals.css"
 import { useState, useEffect } from "react"
 
 /**
- * 
+ * @prop {String} username | 
  * @prop {boolean} enableSearchBar | displays the search patreon box
  */
 export default function Header( { enableSearchBar } ) {
+
+    /**
+     * change this when backend functionality becomes available !!!!!!
+     */
     const [username, setUsername] = useState()
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleSearch = () => {
         console.log("search button pressed")
@@ -21,12 +26,13 @@ export default function Header( { enableSearchBar } ) {
         if (name != null) {
             setUsername(name)
         }
+        setIsLoading(false)
     }, [])
 
     return (
         <div className={styles.container}>
             <div className={styles.start}>
-                🦆🌟
+                <Link href="/" className={styles.homepageLink}>🦆🌟</Link>
             </div>
 
             <div className={styles.middle}/>
@@ -49,7 +55,9 @@ export default function Header( { enableSearchBar } ) {
                 )}
 
                 {
-                    username == null ? (
+                    isLoading ? (
+                        <p className={styles.linkPlacerholder}></p>
+                    ) : username == null ? (
                         <>
                         <Link href="/login" className={styles.link}>
                             <strong>Log in</strong>

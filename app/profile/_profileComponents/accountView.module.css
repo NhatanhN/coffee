@@ -1,0 +1,88 @@
+.middle {
+    flex-grow: 1;
+}
+
+.imageBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.profileImage {
+    border-radius: 50px;
+}
+
+.userInfoBox {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.logoutButton {
+    height: min-content;
+    align-self: center;
+    padding: .5rem;
+    color: var(--color-dark-blue-one);
+    font-size: large;
+    border: none;
+    border-radius: 8px;
+    transition: .2s;
+    background-color: transparent;
+}
+
+.logoutButton:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.changePicButton {
+    padding: .2rem;
+    border: none;
+    transition: .2s;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+.changePicButton:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+
+.start {
+    display: flex;
+    margin: 1rem;
+}
+
+.middle {
+    margin: 1rem;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 10px;
+}
+
+.end {
+    margin: 1rem;
+}
+
+.deactivateButton {
+    font-size: large;
+    color: white;
+    padding: 7px;
+    border: none;
+    border-radius: 6px;
+    transition: .2s;
+    background-color: crimson;
+}
+
+.deactivateButton:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
