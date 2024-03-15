@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.modalContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation-name: fadein;
+    animation-duration: .2s;
+}
+
+.formContainer {
+    padding: 25px;
+    min-height: 500px;
+    min-width: 400px;
+    height: 70%;
+    width: 40%;
+    border-radius: 15px;
+    background-color: var(--color-light-one);
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

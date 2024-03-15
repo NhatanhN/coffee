@@ -68,16 +68,15 @@ export default function Profile() {
             </nav>
 
             <section className={styles.content}>
-                {
-                    isLoading ? (
-                        <p>loading</p>
-                    ) : activeView == 1 ? (
-                        <AccountView userData={userData} setUserData={setUserData}/>
-                    ) : activeView == 2 ? (
-                        <CoffeeView userData={userData} setUserData={setUserData}/>
-                    ) : (
-                        <HistoryView userData={userData} setUserData={setUserData}/>
-                    )
+                {isLoading ? (
+                    <p>loading</p>
+                ) : activeView == 1 ? (
+                    <AccountView userData={userData} setUserData={setUserData}/>
+                ) : activeView == 2 ? (
+                    <CoffeeView userData={userData} setUserData={setUserData}/>
+                ) : (
+                    <HistoryView userData={userData} setUserData={setUserData}/>
+                )
                 }
             </section>
             </main>
