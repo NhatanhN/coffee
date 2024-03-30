@@ -7,7 +7,7 @@
 .mainContainer {
     flex-grow: 1;
     display: flex;
-    background-color: var(--color-blueyish-white);
+    background-color: var(--color-light-one);
 }
 
 .nav {
@@ -19,7 +19,7 @@
     align-items: center;
     flex-direction: column;
     gap: .3rem;
-    background-color: var(--color-light-one);
+    background-color: var(--color-off-white);
 }
 
 .navButton {

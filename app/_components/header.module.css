@@ -17,7 +17,7 @@
     justify-content: center;
 }
 
-.middle {
+.middle, .modalFormInput {
     flex-grow: 1;
 }
 
@@ -39,7 +39,7 @@
     border-radius: 30px;
 }
 
-.linkPlacerholder {
+.linkPlaceholder {
     min-width: 4rem;
 }
 
@@ -52,22 +52,30 @@
     color: var(--color-light-one);
 }
 
-.form {
+.searchBar {
     display: flex;
     gap: .5rem;
     padding: 3px 18px;
     border-radius: 30px;
     background: whitesmoke;
     transition: background-color .25s;
+    align-items: center;
+    cursor: pointer;
 }
 
-.form:hover {
+.searchBar:hover, .input:hover {
     background-color: var(--hover-gray);
+}
+
+.searchBarText {
+    color: gray;
+    font-size: .75rem;
 }
 
 .input {
     border: none;
-    background-color: transparent;
+    background-color: var(--color-light-one);
+    font-size: .75rem;
 }
 
 .input:focus {
@@ -78,4 +86,53 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+.modalContainer {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, .4);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    animation: fadein .2s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.searchContainer {
+    width: 80vw;
+    max-width: 400px;
+    height: 60vh;
+    max-height: 600px;
+    border-radius: 50px;
+    padding: 30px;
+    color: #111111;
+    background-color: var(--color-light-one);
+}
+
+.modalFormContainer {
+    display: flex;
+    border-bottom: solid gray 1px;
+    padding: 6px;
+}
+
+.searchLoading {
+    color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 15px;
+    animation: fadein 1.5s infinite alternate-reverse;
 }

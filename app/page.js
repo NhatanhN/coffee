@@ -7,7 +7,7 @@ export default function Landing() {
         <div className={styles.container}>
             <Header enableSearchBar />
             <main className={styles.mainContainer}>
-                <p>make this look good :C</p>
+                <p>landing page</p>
             </main>
         </div>
     )

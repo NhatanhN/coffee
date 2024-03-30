@@ -12,13 +12,31 @@ import { useState, useEffect } from "react"
 export default function Header( { enableSearchBar } ) {
 
     /**
-     * change this when backend functionality becomes available !!!!!!
+     * change this when backend functionality becomes available
      */
     const [username, setUsername] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    const [isModalActive, setIsModalActive] = useState(false)
+    const [isSearchResultsLoading, setIsSearchResultsLoading] = useState(true)
+    const [searchResults, setSearchResults] = useState()
 
-    const handleSearch = () => {
+    const handleSearch = async (e) => {
+        e.preventDefault() 
+
+
         console.log("search button pressed")
+        setIsSearchResultsLoading(true)
+        //fetch results
+        //setIsSearchResultsLoading(false)
+        //setSearchResults(...)
+    }
+
+    const toggleModal = () => {
+        setIsModalActive(!isModalActive)
+    }
+
+    const stopClickPropogation = (e) => {
+        e.stopPropagation()
     }
 
     useEffect(() => {
@@ -39,24 +57,15 @@ export default function Header( { enableSearchBar } ) {
 
             <div className={styles.end}>
                 {enableSearchBar && (
-                    <form className={styles.form}>
-                        <input 
-                            type="text"
-                            placeholder="Search for (patreons)"
-                            className={styles.input}
-                        />
-                        <button 
-                            className={styles.formButton} 
-                            onClick={handleSearch}
-                        >
-                            🔍
-                        </button>
-                    </form>
+                    <div className={styles.searchBar} onClick={toggleModal}>
+                        <p className={styles.searchBarText}>Search for coffees</p>
+                        <p>🔍</p>
+                    </div>
                 )}
 
                 {
                     isLoading ? (
-                        <p className={styles.linkPlacerholder}></p>
+                        <p className={styles.linkPlaceholder}></p>
                     ) : username == null ? (
                         <>
                         <Link href="/login" className={styles.link}>
@@ -72,9 +81,37 @@ export default function Header( { enableSearchBar } ) {
                         </Link>
                     )
                 }
-                
             </div>
 
+            {/**
+             * Search modal
+             */}
+            {isModalActive && (
+                <div className={styles.modalContainer} onClick={toggleModal}>
+                    <div className={styles.searchContainer} onClick={stopClickPropogation}>
+                        <form className={styles.modalFormContainer} onSubmit={handleSearch}>
+                            <input 
+                                type="text"
+                                placeholder="Search for coffees"
+                                className={styles.input + " " + styles.modalFormInput}
+                            />
+                            <button className={styles.formButton}>🔍</button>
+                        </form>
+
+                        <div>
+                            {isSearchResultsLoading ? (
+                                <p className={styles.searchLoading}>loading ⌛</p>
+                            ) : (
+                                <ul>
+                                    {
+                                        //searchResults.map(...)
+                                    }
+                                </ul>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

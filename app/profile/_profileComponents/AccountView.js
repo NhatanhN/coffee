@@ -58,6 +58,7 @@ export default function AccountView({ userData, setUserData}) {
                     <form
                         className={styles.updateImgForm}
                         method="POST"
+                        onSubmit={submitForm}
                     >
                         <h2>Update profile image</h2>
                         <ProfileImage src={newProfilePic} alt={"profile pic to be uploaded"}/>
@@ -74,10 +75,7 @@ export default function AccountView({ userData, setUserData}) {
                                 onChange={updateProfilePic}
                             />
                         </div>
-                        <button
-                            className={styles.formButton}
-                            onClick={submitForm}
-                        >
+                        <button className={styles.formButton}>
                             Update profile image
                         </button>
                     </form>

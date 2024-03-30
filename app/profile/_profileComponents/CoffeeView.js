@@ -3,7 +3,6 @@ import styles from "./coffeeView.module.css"
 
 export default function CoffeeView() {
     const [isLoading, setIsLoading] = useState(true)
-    const [isModalActive, setIsModalActive] = useState(false)
     const [coffee, setCoffee] = useState()
 
     useEffect(() => {
@@ -17,8 +16,27 @@ export default function CoffeeView() {
          * const res = await fetch(...)
          * setCoffee(res)
          */
-        console.log("loadingCoffee")
         setIsLoading(false)
+    }
+
+    const createCoffee = async () =>  {
+        /**
+         * // create coffee
+         * const res = await fetch(...)
+         * setCoffee(res)
+         */
+
+        //testing behavior
+        setCoffee({
+            bannerImageID: "firebrick", // would be an ID for an image accessible like https:// (...)/image/(bannerImageID)
+            creatorID: sessionStorage.getItem("userID"),
+            title: `${sessionStorage.getItem("username")}'s donation page`,
+            text: `this is the patreon page for ${sessionStorage.getItem("username")}`
+        })
+    }
+
+    const saveCoffee = async () => {
+
     }
 
     const stopClickPropogation = (e) => {
@@ -32,28 +50,9 @@ export default function CoffeeView() {
             ) : coffee == null ? (
                 <>
                 <h3>Coffee page currently inactive</h3>
-                <button onClick={() => setIsModalActive(!isModalActive)}>
-                    Create a coffee by clicking here
-                </button>
                 </>
             ) : (
                 <p>coffee</p>
-            )}
-            {isModalActive && (
-                <div 
-                    className={styles.modalContainer}
-                    onClick={() => setIsModalActive(!isModalActive)}
-                >
-                    <div
-                        className={styles.formContainer}
-                        onClick={stopClickPropogation}
-                    >
-                        <form >
-                            <p>box</p>
-
-                        </form>
-                    </div>
-                </div>
             )}
         </div>
     )
