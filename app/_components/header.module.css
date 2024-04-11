@@ -1,7 +1,7 @@
 .container {
     background: var(--color-dark-blue-one);
     color: var(--color-light-one);
-    height: 2.5rem;
+    height: var(--header-height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,6 +9,7 @@
     box-shadow: 0px -8px 20px rgb(48, 48, 48);
     position: sticky;
     top: 0px;
+    z-index: 1;
 }
 
 .start {

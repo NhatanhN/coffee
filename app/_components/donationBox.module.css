@@ -1,0 +1,18 @@
+.donationInput {
+    display: inline;
+    margin: 0px 1ch 0px 1ch;
+    width: 8ch;
+}
+
+.titleButton {
+    border: none;
+    font: inherit;
+    background: transparent;
+    padding: 0px .25ch;
+    color: rgb(22, 94, 189);
+}
+
+.titleButton:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}

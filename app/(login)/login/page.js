@@ -2,25 +2,23 @@
 
 import Link from "next/link";
 import styles from "../login.module.css"
+import { databaseURL } from "@/app/constants";
 
 export default function Login() {
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault()
 
-        const payload = {
-            username: e.target.username.value,
-            password: e.target.password.value
-        }
-        console.log(payload)
-
-        /**
-         * 
-        const res = await fetch(url, {
+        const data = new FormData(e.target)
+        
+        const res = await fetch(databaseURL + "/login/", {
             method: "POST",
-            body: JSON.stringify(payload)
+            body: data
         })
-         */
+        
+        console.log(res)
+
+
         // make sure to set the action attribute on the form
         // make sure to set the proper keys for sessionStorage
         

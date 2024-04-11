@@ -5,12 +5,12 @@ import styles from "../login.module.css"
 
 export default function SignUp() {
 
-    const handleSignup = (e) => {
+    const handleSignup = async (e) => {
         e.preventDefault()
-
         const password1 = e.target.password1.value
         const password2 = e.target.password2.value
         const username = e.target.username.value
+        /*
         // check to see if username already exists
         if (0 == 1) {
             console.log("handleSignup: username is already taken")
@@ -31,18 +31,26 @@ export default function SignUp() {
         }
 
         const payload = {
-            username: e.target.username.value,
+            username: username,
             password: password1
         }
         console.log(payload)
+        */
 
-        /**
-         * 
-        const res = await fetch(url, {
+        const formData = new FormData()
+        formData.append("username", username)
+        formData.append("password", password1)
+        formData.append("first_name", "TEST FIRST NAME")
+        formData.append("last_name", "TEST LAST NAME")
+        formData.append("email", "TESTEMAIL@TEST.COM")
+        console.log(formData)
+        const url = "http://127.0.0.1:8000/register/";
+        console.log(url)
+        const res = await fetch( url , {
             method: "POST",
-            body: JSON.stringify(payload)
+            body: formData
         })
-         */
+        console.log(res)
         // make sure to set the action attribute on the form
         // make sure to set the proper keys for sessionStorage
     }

@@ -6,7 +6,7 @@ import Header from "../_components/Header"
 import styles from "./profile.module.css"
 
 import AccountView from "./_profileComponents/AccountView"
-import CoffeeView from "./_profileComponents/CoffeeView"
+import EditorView from "./_profileComponents/EditorView"
 import HistoryView from "./_profileComponents/HistoryView"
 
 export default function Profile() {
@@ -73,7 +73,7 @@ export default function Profile() {
                 ) : activeView == 1 ? (
                     <AccountView userData={userData} setUserData={setUserData}/>
                 ) : activeView == 2 ? (
-                    <CoffeeView userData={userData} setUserData={setUserData}/>
+                    <EditorView userData={userData} setUserData={setUserData}/>
                 ) : (
                     <HistoryView userData={userData} setUserData={setUserData}/>
                 )
