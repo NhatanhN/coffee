@@ -4,6 +4,7 @@ import ProfileImage from "@/app/_components/ProfileImage"
 import styles from "./accountView.module.css"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
+import Subscription from "@/app/_components/Subscription"
 
 export default function AccountView({ userData, setUserData}) {
     const [subscriptions, setSubscriptions] = useState([])
@@ -42,7 +43,8 @@ export default function AccountView({ userData, setUserData}) {
          * const res = await fetch(...)
          * setSubscriptions(res)
          */
-    })
+        setSubscriptions([1, 2])
+    }, [])
 
     return (
         <>
@@ -109,10 +111,12 @@ export default function AccountView({ userData, setUserData}) {
             {
                 subscriptions.length == 0 ? (
                     <div className={styles.noSubscriptionsContainer}>
-                        <em>☀🌻✌No active subscriptions</em>
+                        <em>No active subscriptions</em>
                     </div>
                 ) : (
-                    <em>display active subscriptions here</em>
+                    subscriptions.map( e => {
+                        return <Subscription key={e} id={e} />
+                    })
                 )
             }
         </div>

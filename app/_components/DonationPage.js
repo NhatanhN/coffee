@@ -15,7 +15,7 @@ export default function DonationPage({ id, enableEdit }) {
     useEffect(() => {
 
         // 4 testing
-        getPageData()
+        //getPageData()
         const data = {
             bannerImageID: "darkgreen",
             creatorID: 1234,
@@ -168,7 +168,7 @@ export default function DonationPage({ id, enableEdit }) {
                             userID: pageData.creatorID,
                             username: pageData.creatorUsername    
                         }}
-                        disabled
+                        disabled={enableEdit}
                     />
                 </div>
             </div>
