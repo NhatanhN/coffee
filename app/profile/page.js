@@ -17,14 +17,10 @@ export default function Profile() {
 
     useEffect(() => {
         if (sessionStorage.getItem("userID") == null) {
-            //user is not logged in
             router.replace("/")
             return
         }
-
-        //fetch data here e.g.
-        //data = fetch(userID)
-        //setUserData(data)
+        
         setUserData({
             username: sessionStorage.getItem("username"),
             userID: sessionStorage.getItem("userID"),

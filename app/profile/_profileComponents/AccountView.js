@@ -96,8 +96,8 @@ export default function AccountView({ userData, setUserData}) {
                 </button>
             </div>
             <div className={styles.userInfoBox}>
-                <p>{userData.username}</p>
-                <p>{userData.userID}</p>
+                <p>Username: {userData.username}</p>
+                <p>ID: {userData.userID}</p>
             </div>
             <button 
                 className={styles.logoutButton}

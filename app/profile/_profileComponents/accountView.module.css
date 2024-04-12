@@ -38,7 +38,7 @@
 
 .changePicButton {
     padding: .2rem;
-    border: none;
+    border: 1px solid gray;
     transition: .2s;
     border-radius: 8px;
     background-color: transparent;

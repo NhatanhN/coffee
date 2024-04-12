@@ -66,10 +66,21 @@
     padding-bottom: 50px;
 }
 
+.status {
+    color: firebrick;
+    font-size: smaller;
+}
+
 .link {
     color: gray;
 }
 
 .link:visited {
     color: gray;
+}
+
+.centerItems {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
