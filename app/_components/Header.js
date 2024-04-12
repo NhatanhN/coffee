@@ -50,7 +50,7 @@ export default function Header( { enableSearchBar } ) {
     return (
         <div className={styles.container}>
             <div className={styles.start}>
-                <Link href="/" className={styles.homepageLink}>🦆🌟</Link>
+                <Link href="/" className={styles.homepageLink}>🏡</Link>
             </div>
 
             <div className={styles.middle}/>

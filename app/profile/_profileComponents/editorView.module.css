@@ -30,6 +30,22 @@
     background-color: var(--color-light-one);
 }
 
+.button {
+    margin: 20px;
+    border: solid 1px gray;
+    background: none;
+    padding: 10px;
+    transition: .2s;
+    font-size: smaller;
+    border-radius: 8px;
+    color: var(--color-dark-blue-one)
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: var(--hover-gray);
+}
+
 @keyframes fadein {
     from {
         opacity: 0;

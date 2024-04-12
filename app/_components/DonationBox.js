@@ -34,7 +34,7 @@ export default function DonationBox({ userData, disabled}) {
                     max="100"
                 />
 
-                <button disabled={disabled}>
+                <button className={styles.donateButton} disabled={disabled}>
                     Give {formDonating ? "Donation " : "Subscription"} 
                 </button>
             </form>

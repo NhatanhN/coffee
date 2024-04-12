@@ -20,3 +20,7 @@
 body {
   background: var(--color-light-one);
 }
+
+h1, h2, h3, h4, h5, h6, h7 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

@@ -64,3 +64,29 @@
     background: rgb(255,246,114);
     background: linear-gradient(123deg, rgba(255,246,114,1) 0%, rgba(209,255,159,1) 100%); 
 }
+
+.png {
+    width: auto;
+    height: 55%;
+    object-fit: contain;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: var(--color-light-one);
+}
+
+.imageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100% - 1lh);
+}
+
+.svgContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 2lh);
+    align-items: center;
+    justify-content: space-around;
+}

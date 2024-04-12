@@ -52,7 +52,12 @@ export default function EditDonationPageView() {
         ) : donationPageID == -1 ? (
             <div className={styles.container}>
                 <h3>Donation page currently inactive</h3>
-                <button onClick={createDonationPage}>Create donation page</button>
+                <button 
+                    onClick={createDonationPage}
+                    className={styles.button}
+                >
+                    Create donation page
+                </button>
             </div>
         ) : (
             <DonationPage id={donationPageID} enableEdit={isEditing} />
