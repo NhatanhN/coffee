@@ -15,10 +15,17 @@ export default function Login() {
         e.preventDefault()
 
         const data = new FormData(e.target)
-        const res = await fetch(databaseURL + "/login/", {
-            method: "POST",
-            body: data
-        })
+
+        let res
+        try {
+            res = await fetch(databaseURL + "/login/", {
+                method: "POST",
+                body: data
+            })
+        } catch (e) {
+            setStatusMsg("Failed to connect to server.")
+            return
+        }
         
         const json = await res.json()
 

@@ -31,10 +31,17 @@ export default function SignUp() {
         const formData = new FormData()
         formData.append("username", username)
         formData.append("password", password1)
-        const res = await fetch(`${databaseURL}/register/`, {
-            method: "POST",
-            body: formData
-        })
+
+        let res
+        try {
+            res = await fetch(`${databaseURL}/register/`, {
+                method: "POST",
+                body: formData
+            })
+        } catch (e) {
+            setStatusMsg("Failed to connect to server.")
+            return
+        }
 
         const json = await res.json()
 
