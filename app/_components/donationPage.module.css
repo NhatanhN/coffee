@@ -35,7 +35,7 @@
 
 .editContainer {
     display: grid;
-    grid-template-columns: 15ch auto;
+    grid-template-columns: 8ch auto;
     row-gap: 1rem;
 }
 
@@ -43,6 +43,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .editButtons {
@@ -73,4 +74,11 @@
 .leftBorder {
     border-left: 1px solid slategray;
     padding: 10px
+}
+
+.loadingContainer {
+    height: calc(100vh - var(--header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

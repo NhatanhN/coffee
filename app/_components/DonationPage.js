@@ -3,6 +3,7 @@ import ProfileImage from "./ProfileImage"
 import DonationBox from "./DonationBox"
 import styles from "./donationPage.module.css"
 import { databaseURL } from "../constants"
+import "../globals.css"
 
 export default function DonationPage({ id, enableEdit }) {
     const [pageData, setPageData] = useState()
@@ -19,9 +20,9 @@ export default function DonationPage({ id, enableEdit }) {
         const data = {
             bannerImageID: "darkgreen",
             creatorID: 1234,
-            creatorUsername: "bookie",
-            title: "Bookie's donation page",
-            text: "This is bookie's donation page 🚗"
+            creatorUsername: "test user",
+            title: "test user's donation page",
+            text: "This is test user's donation page 🍅"
         }
         setPageData(data)
         setUneditedPageData(data)
@@ -70,7 +71,9 @@ export default function DonationPage({ id, enableEdit }) {
     return (
         <>
         {pageData == null ? (
-            <p>loading page</p>
+            <div className={styles.loadingContainer}>
+                <p>loading page</p>
+            </div>
         ) : (
             <>
             {enableEdit && (

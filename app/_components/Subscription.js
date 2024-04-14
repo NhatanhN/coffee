@@ -11,40 +11,48 @@ export default function Subscription({ id }) {
     useEffect(() => {
         setData({
             pageTitle: "beep boop's donation page",
+            pageID: 1,
             creatorName: "beep boop",
-            dateOpened: "December 17, 1995 03:24:00",
+            dateOpened: "December 17, 1995",
             price: 3,
             /*
-            dateClosed: "December 17, 1995 03:24:00"
+            dateClosed: "February 17, 1996"
             */
         })
     }, [])
 
 
     return (
-        <div className={styles.container}>
-            {data == null ? (
-                <p className={styles.loading}>
-                    loading subscription data
-                </p>
-            ) : (
-                <>
-                <Link 
-                    className={styles.title}
-                    target="_blank"
-                    href={`${websiteRoot}/donate/${id}`}
-                >
-                    <h4>{data.pageTitle}</h4>
-                </Link>
-                <p className={styles.creatorName}>{data.creatorName}</p>
-                {data.dateClosed ? (
-                    <p className={styles.date}>Subscribed from {data.dateOpened} to {data.dateClosed}</p>
-                ) : (
-                    <p className={styles.date}>Subscribed at {data.dateOpened}</p>
-                )}
+        <>
+        {data == null ? (
+            <div className={styles.loadingContainer}>
+                <p>loading subscription data</p>
+            </div>
+        ) : (
+            <div className={styles.container}>
+                <div className={styles.description}>
+                    <Link 
+                        className={styles.link}
+                        target="_blank"
+                        href={`${websiteRoot}/donate/${data.pageID}`}
+                    >
+                        <h4 className={styles.title}>{data.pageTitle}</h4>
+                    </Link>
+
+                    <p className={styles.smallFont}>{data.creatorName}</p>
+                    {data.dateClosed ? (
+                        <>
+                        <p className={styles.smallFont}>Subscribed from {data.dateOpened} to {data.dateClosed}</p>
+                        <em className={styles.smallFont}>Inactive</em>
+                        </>
+                    ) : (
+                        <p className={styles.smallFont}>Subscribed at {data.dateOpened}</p>
+                    )}
+                </div>
+
                 <p className={styles.price}>{data.price} points</p>
-                </>
-            )}
-        </div>
+            </div>
+        )}
+        </>
     )
 }

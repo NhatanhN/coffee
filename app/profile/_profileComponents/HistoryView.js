@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Subscription from "@/app/_components/Subscription"
 import styles from "./historyView.module.css"
+import Donation from "@/app/_components/Donation"
 
 export default function HistoryView() {
     const [subscriptions, setSubscriptions] = useState()
@@ -13,7 +14,7 @@ export default function HistoryView() {
         /**
          * fetch donations & subscription info here
          */
-        setDonations([1, 2, 3])
+        setDonations([])
         setSubscriptions([2, 3, 4])
         setIsLoading(false)
     }, [])
@@ -26,7 +27,12 @@ export default function HistoryView() {
             </div>
         ) : (
             <div className={styles.mainContainer}>
-                <h3>Subscriptions</h3>
+                <h3 className={styles.header}>Subscriptions</h3>
+                {subscriptions.length == 0 && (
+                    <div className={styles.noItemsToShow}>
+                        <p>No subscription history</p>
+                    </div>
+                )}
                 {subscriptions.map((e) => 
                     <div key={e} className={styles.donationItem}>
                         <Subscription id={e}/>
@@ -35,7 +41,17 @@ export default function HistoryView() {
 
                 <div className={styles.divider} />
                 
-                <h3>Donations</h3>
+                <h3 className={styles.header}>Donations</h3>
+                {donations.length == 0 && (
+                    <div className={styles.noItemsToShow}>
+                        <p>No donation history</p>
+                    </div>
+                )}
+                {donations.map((e) =>
+                    <div key={e} className={styles.donationItem}>
+                        <Donation id={e}/>
+                    </div>
+                )}
             </div>
         )}
         </>

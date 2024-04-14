@@ -10,6 +10,7 @@
     width: 100%;
     height: 100%;
     padding: 8px;
+    padding-bottom: 16px;
     display: flex;
     flex-direction: column;
 }
@@ -20,5 +21,18 @@
 
 .divider {
     border: solid 1px gray;
-    margin: 40px 2% 30px 2%;
+    margin: 15px 2%;
+}
+
+.header {
+    margin-bottom: 15px;
+}
+
+.noItemsToShow {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
 }

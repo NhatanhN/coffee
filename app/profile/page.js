@@ -65,7 +65,9 @@ export default function Profile() {
 
             <section className={styles.content}>
                 {isLoading ? (
-                    <p>loading</p>
+                    <div className={styles.loadingContainer}>
+                        <p>loading</p>
+                    </div>
                 ) : activeView == 1 ? (
                     <AccountView userData={userData} setUserData={setUserData}/>
                 ) : activeView == 2 ? (
