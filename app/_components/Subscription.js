@@ -10,8 +10,6 @@ export default function Subscription({ id }) {
 
     useEffect(() => {
         setData({
-            donatorID: 1,
-            pageID: 2,
             pageTitle: "beep boop's donation page",
             creatorName: "beep boop",
             dateOpened: "December 17, 1995 03:24:00",
