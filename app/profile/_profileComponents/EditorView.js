@@ -39,7 +39,8 @@ export default function EditDonationPageView() {
 
         console.log(data)
         const res = await fetch(`${databaseURL}/page/createpage/${id}/`, {
-            method: "POST"
+            method: "POST",
+            body: data,
         })
 
         //setIsEditing(true)
