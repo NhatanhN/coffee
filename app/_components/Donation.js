@@ -20,7 +20,12 @@ export default function Donation({ id }) {
             date: "December 17, 1995 03:24:00",
             price: 5,
         })
+        //loadData()
     }, [])
+
+    const loadData = async () => {
+        
+    }
 
     return (
         <>

@@ -1,16 +1,30 @@
+"use client"
+
 import { useState } from "react"
 import styles from "./donationBox.module.css"
+import { databaseURL } from "../constants"
 
 /**
  * 
  * @param {*} userData: {userID: number, username: string}
  * @returns 
  */
-export default function DonationBox({ userData, disabled}) {
+export default function DonationBox({ userData, disabled }) {
     const [formDonating, setFormDonating] = useState()
 
-    const handleDonate = (e) => {
+    const handleDonate = async (e) => {
         e.preventDefault()
+
+        const data = new FormData(e.target)
+        const pageID = 1;
+        const userID = 9
+        console.log(data)
+        const res = await fetch(`${databaseURL}/page/pagedonation/${pageID}/${userID}/`, {
+            method: "POST",
+            body: data
+        })
+
+        console.log(res)
     }
 
     return (
@@ -24,11 +38,11 @@ export default function DonationBox({ userData, disabled}) {
                 </button> 
                 To {userData.username}
             </strong>
-            <form>
-                <label htmlFor="amount">Number of points: </label>
+            <form onSubmit={handleDonate}>
+                <label htmlFor="donation_amt">Number of points: </label>
                 <input 
                     className={styles.donationInput}
-                    name="amount"
+                    name="donation_amt"
                     type="number"
                     min="1"
                     max="100"

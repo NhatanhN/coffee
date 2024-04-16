@@ -14,29 +14,26 @@ export default function DonationPage({ id, enableEdit }) {
     
 
     useEffect(() => {
-
-        // 4 testing
-        //getPageData()
         const data = {
-            bannerImageID: "darkgreen",
-            creatorID: 1234,
-            creatorUsername: "test user",
             title: "test user's donation page",
-            text: "This is test user's donation page 🍅"
+            text: "test user's donation page body 🍅",
+            bannerImageID: "darkgreen"
         }
         setPageData(data)
         setUneditedPageData(data)
-        /**
-         * 
-         */
+        //getPageData()
     }, [])
 
     const getPageData = async () => {
-        const testID = 8
-        const res = await fetch(`${databaseURL}/page/viewpage/?id=${testID}`, {
+        const res = await fetch(`${databaseURL}/page/viewpage/${id}`, {
             method: "GET"
         })
-        console.log(res)
+
+        if (res.ok) {
+            const resJson = await res.json()
+            setPageData(resJson)
+            setUneditedPageData(data)
+        }
     }
 
     const changeTitle = (e) => {

@@ -5,6 +5,7 @@ import styles from "./accountView.module.css"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import Subscription from "@/app/_components/Subscription"
+import { databaseURL } from "@/app/constants"
 
 export default function AccountView({ userData, setUserData}) {
     const [subscriptions, setSubscriptions] = useState([])
@@ -18,8 +19,13 @@ export default function AccountView({ userData, setUserData}) {
         router.push("/")
     }
 
-    const onDeactivateAcc = () => {
+    const onDeactivateAcc = async () => {
         console.log("deactivate acc button pressed")
+        const pageID = 1
+        const res = await fetch(`${databaseURL}/page/deletepage/${pageID}/`, {
+            method: "POST"
+        })
+        console.log(res)
     }
 
     const stopClickPropogation = (e) => {

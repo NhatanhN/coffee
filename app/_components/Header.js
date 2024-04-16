@@ -58,7 +58,7 @@ export default function Header( { enableSearchBar } ) {
             <div className={styles.end}>
                 {enableSearchBar && (
                     <div className={styles.searchBar} onClick={toggleModal}>
-                        <p className={styles.searchBarText}>Search for coffees</p>
+                        <p className={styles.searchBarText}>Search for donation pages</p>
                         <p>🔍</p>
                     </div>
                 )}
@@ -92,7 +92,7 @@ export default function Header( { enableSearchBar } ) {
                         <form className={styles.modalFormContainer} onSubmit={handleSearch}>
                             <input 
                                 type="text"
-                                placeholder="Search for coffees"
+                                placeholder="Search for a donation page"
                                 className={styles.input + " " + styles.modalFormInput}
                             />
                             <button className={styles.formButton}>🔍</button>
