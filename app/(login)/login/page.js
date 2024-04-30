@@ -14,13 +14,11 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault()
 
-        const data = new FormData(e.target)
-
         let res
         try {
-            res = await fetch(databaseURL + "/login/", {
+            res = await fetch(`${databaseURL}/login/`, {
                 method: "POST",
-                body: data
+                body: new FormData(e.target)
             })
         } catch (e) {
             setStatusMsg("Failed to connect to server.")
@@ -36,6 +34,7 @@ export default function Login() {
 
         sessionStorage.setItem("username", json.username)
         sessionStorage.setItem("userID", json.userid)
+        sessionStorage.setItem("profilePicID", json.profile_pic)
         router.push("/profile")
     }
 

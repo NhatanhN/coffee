@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
+
 import ProfileImage from "./ProfileImage"
 import DonationBox from "./DonationBox"
-import styles from "./donationPage.module.css"
 import { databaseURL } from "../constants"
+import styles from "./donationPage.module.css"
 import "../globals.css"
 
-export default function DonationPage({ id, enableEdit }) {
+export default function DonationPage({ creatorID, enableEdit }) {
     const [pageData, setPageData] = useState()
     const [uneditedPageData, setUneditedPageData] = useState()
     const [isEditing, setIsEditing] = useState()
@@ -14,26 +15,42 @@ export default function DonationPage({ id, enableEdit }) {
     
 
     useEffect(() => {
-        const data = {
-            title: "test user's donation page",
-            text: "test user's donation page body 🍅",
-            bannerImageID: "darkgreen"
-        }
-        setPageData(data)
-        setUneditedPageData(data)
-        //getPageData()
+        getPageData()
     }, [])
 
     const getPageData = async () => {
-        const res = await fetch(`${databaseURL}/page/viewpage/${id}`, {
+        const res = await fetch(`${databaseURL}/page/viewpage/${creatorID}/`, {
             method: "GET"
         })
 
         if (res.ok) {
-            const resJson = await res.json()
-            setPageData(resJson)
-            setUneditedPageData(data)
+            let json = await res.json()
+            json = {
+                ...json,
+                bannerURL: `${databaseURL}/image/${json.imageid}/`,
+                creatorImageURL: `${databaseURL}/image/${json.imageid}/`
+            }
+            setPageData(json)
+            setUneditedPageData(json)
         }
+    }
+    
+    const updatePage = async (e) => {
+        e.preventDefault()
+
+        const data = new FormData(e.target)
+        const res = await fetch(`${databaseURL}/page/updatepage/${pageData.id}/`, {
+            method: "POST",
+            body: data
+        })
+        getPageData()
+    }
+    
+    const deletePage = async (e) => {
+        const pageID = pageData.id
+        const res = await fetch(`${databaseURL}/page/deletepage/${pageID}/`, {
+            method: "DELETE"
+        })
     }
 
     const changeTitle = (e) => {
@@ -41,7 +58,7 @@ export default function DonationPage({ id, enableEdit }) {
     }
 
     const changeText = (e) => {
-        setPageData({...pageData, text: e.target.value})
+        setPageData({...pageData, description: e.target.value})
     }
 
     const changeImage = (e) => {
@@ -59,12 +76,7 @@ export default function DonationPage({ id, enableEdit }) {
         const banner = document.getElementById("bannerImage")
         if (banner) banner.value = ""
     }
-
-    const updatePage = (e) => {
-        e.preventDefault()
-
-    }
-
+    
     return (
         <>
         {pageData == null ? (
@@ -78,6 +90,7 @@ export default function DonationPage({ id, enableEdit }) {
                     {showButtons && (
                         <>
                         <form
+                            id="updateForm"
                             onSubmit={updatePage}
                         >
                             <button className={styles.editButtons} disabled={!isEditing}>
@@ -86,6 +99,10 @@ export default function DonationPage({ id, enableEdit }) {
                         </form>
                         <button className={styles.editButtons} onClick={resetChanges}>
                             Reset changes
+                        </button>
+                        <br />
+                        <button className={styles.editButtons} onClick={deletePage}>
+                            Delete page
                         </button>
                         <br />
                         <button className={styles.editButtons} onClick={() => setIsEditing(!isEditing)}>
@@ -104,11 +121,11 @@ export default function DonationPage({ id, enableEdit }) {
                 <div 
                     className={styles.banner}
                     style={{
-                        background: newImage ? `url(${newImage.url})` : pageData.bannerImageID
+                        background: newImage ? `url(${newImage.url})` : `url(${pageData.bannerURL})`
                     }}
                 >
                     <div className={styles.creatorImage}>
-                        <ProfileImage />
+                        <ProfileImage src={`${pageData.creatorImageURL}`} alt={"Page owner's profile picture"} />
                     </div>
                 </div>
 
@@ -117,31 +134,32 @@ export default function DonationPage({ id, enableEdit }) {
                     {/** editing */}
 
                     <div className={styles.editContainer}>
-                        <label htmlFor="bannerImage">Banner: </label>
+                        <label htmlFor="image">Banner: </label>
                         <input 
+                            form="updateForm"
                             type="file" 
-                            id="bannerImage"
-                            name="bannerImage" 
+                            id="image"
+                            name="image" 
                             accept="image/*" 
                             onChange={changeImage}
                         />
 
                         <label htmlFor="title">Title: </label>
                         <textarea
+                            form="updateForm"
                             name="title"
                             className={styles.inputTitle}
                             value={pageData.title}
                             onChange={changeTitle}
-                            required
                         />
 
-                        <label htmlFor="body">Body: </label>
+                        <label htmlFor="description">Body: </label>
                         <textarea
-                            name="body"
+                            form="updateForm"
+                            name="description"
                             className={styles.inputText}
-                            value={pageData.text}
+                            value={pageData.description}
                             onChange={changeText}
-                            required
                         />
                     </div>
                     </>
@@ -155,7 +173,7 @@ export default function DonationPage({ id, enableEdit }) {
                         </div>
 
                         <div className={styles.textContainer}>
-                            <p>{pageData.text}</p>
+                            <p>{pageData.description}</p>
                         </div>
 
                     </div>
@@ -164,8 +182,9 @@ export default function DonationPage({ id, enableEdit }) {
 
                 <div className={styles.leftBorder}>
                     <DonationBox
+                        pageID = {pageData.id}
                         userData={{
-                            userID: pageData.creatorID,
+                            id: pageData.creatorID,
                             username: pageData.creatorUsername    
                         }}
                         disabled={enableEdit}

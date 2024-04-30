@@ -4,27 +4,16 @@ import { useState } from "react"
 import styles from "./donationBox.module.css"
 import { databaseURL } from "../constants"
 
-/**
- * 
- * @param {*} userData: {userID: number, username: string}
- * @returns 
- */
-export default function DonationBox({ userData, disabled }) {
+export default function DonationBox({ pageID, userData, disabled }) {
     const [formDonating, setFormDonating] = useState()
 
     const handleDonate = async (e) => {
         e.preventDefault()
 
-        const data = new FormData(e.target)
-        const pageID = 1;
-        const userID = 9
-        console.log(data)
-        const res = await fetch(`${databaseURL}/page/pagedonation/${pageID}/${userID}/`, {
+        const res = await fetch(`${databaseURL}/page/pagedonation/${pageID}/${userData.id}/`, {
             method: "POST",
-            body: data
+            body: new FormData(e.target)
         })
-
-        console.log(res)
     }
 
     return (

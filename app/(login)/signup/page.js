@@ -31,6 +31,8 @@ export default function SignUp() {
         const formData = new FormData()
         formData.append("username", username)
         formData.append("password", password1)
+        const defaultImage = await fetch("/thing.png")
+        formData.append("image", await defaultImage.blob())
 
         let res
         try {
@@ -52,6 +54,7 @@ export default function SignUp() {
 
         sessionStorage.setItem("username", json.username)
         sessionStorage.setItem("userID", json.userid)
+        sessionStorage.setItem("profilePicID", json.profile_pic)
         router.push("/profile")
     }
 

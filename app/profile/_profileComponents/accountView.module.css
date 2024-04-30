@@ -69,7 +69,7 @@
     margin: 1rem;
 }
 
-.deactivateButton {
+.deleteAccount {
     font-size: large;
     color: white;
     padding: 7px;
@@ -79,7 +79,7 @@
     background-color: crimson;
 }
 
-.deactivateButton:hover {
+.deleteAccount:hover {
     background-color: lightgray;
     cursor: pointer;
 }

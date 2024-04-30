@@ -11,6 +11,7 @@ export default function AccountView({ userData, setUserData}) {
     const [subscriptions, setSubscriptions] = useState([])
     const [isModalActive, setIsModalActive] = useState(false)
     const [newProfilePic, setNewProfilePic] = useState()
+    const [profilePicSrc, setProfilePicSrc] = useState()
 
     const router = useRouter()
 
@@ -19,13 +20,13 @@ export default function AccountView({ userData, setUserData}) {
         router.push("/")
     }
 
-    const onDeactivateAcc = async () => {
-        console.log("deactivate acc button pressed")
-        const pageID = 1
-        const res = await fetch(`${databaseURL}/page/deletepage/${pageID}/`, {
-            method: "POST"
+    const onDeleteAccount = async () => {
+        const id = sessionStorage.getItem("userID")
+        const res = await fetch(`${databaseURL}/page/deletepage/${id}/`, {
+            method: "DELETE"
         })
-        console.log(res)
+        sessionStorage.clear()
+        router.push("/")
     }
 
     const stopClickPropogation = (e) => {
@@ -37,9 +38,22 @@ export default function AccountView({ userData, setUserData}) {
         setNewProfilePic(imgSrc)
     }
     
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault()
-        console.log("button pressed")
+        /*
+        const data = new FormData()
+        const image = await fetch(newProfilePic)
+        data.append("image", await image.blob())
+
+        const res = await fetch(``, {
+            method: "POST",
+            body: data
+        })
+
+        const json = await res.json()
+        sessionStorage.setItem("profilePicID", json.imageid)
+        router.refresh()
+        */
     }
 
     useEffect(() => {
@@ -50,6 +64,8 @@ export default function AccountView({ userData, setUserData}) {
          * setSubscriptions(res)
          */
         setSubscriptions([1, 2])
+        const picID = sessionStorage.getItem("profilePicID")
+        setProfilePicSrc(`${databaseURL}/image/${picID}`)
     }, [])
 
     return (
@@ -93,7 +109,7 @@ export default function AccountView({ userData, setUserData}) {
 
         <div className={styles.start}>
             <div className={styles.imageBox}>
-                <ProfileImage />
+                <ProfileImage src={profilePicSrc} alt={"your profile picture"} />
                 <button 
                     className={styles.changePicButton}
                     onClick={() => setIsModalActive(!isModalActive)}
@@ -129,10 +145,10 @@ export default function AccountView({ userData, setUserData}) {
 
         <div className={styles.end}>
             <button 
-                className={styles.deactivateButton}
-                onClick={onDeactivateAcc}
+                className={styles.deleteAccount}
+                onClick={onDeleteAccount}
             >
-                Deactivate Account
+                Delete Account
             </button>
         </div>
         </>
