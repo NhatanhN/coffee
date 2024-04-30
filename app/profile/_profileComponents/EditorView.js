@@ -40,7 +40,7 @@ export default function EditDonationPageView() {
 
         const res = await fetch(`${databaseURL}/page/createpage/${id}/`, {
             method: "POST",
-            body: data
+            body: data,
         })
 
         setHasPage(true)
