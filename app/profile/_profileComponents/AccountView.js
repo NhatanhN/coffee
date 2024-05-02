@@ -4,11 +4,10 @@ import ProfileImage from "@/app/_components/ProfileImage"
 import styles from "./accountView.module.css"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-import Subscription from "@/app/_components/Subscription"
 import { databaseURL } from "@/app/constants"
 
 export default function AccountView({ userData, setUserData}) {
-    const [subscriptions, setSubscriptions] = useState([])
+    const [donationAmt, setDonationAmt] = useState(-1)
     const [isModalActive, setIsModalActive] = useState(false)
     const [newProfilePic, setNewProfilePic] = useState()
     const [profilePicSrc, setProfilePicSrc] = useState()
@@ -38,13 +37,15 @@ export default function AccountView({ userData, setUserData}) {
         setNewProfilePic(imgSrc)
     }
     
+    // uploads updated profile pic 
     const submitForm = async (e) => {
         e.preventDefault()
         /*
         const data = new FormData()
         const image = await fetch(newProfilePic)
         data.append("image", await image.blob())
-
+        
+        // Must upload to a specified update image endpoint !!
         const res = await fetch(``, {
             method: "POST",
             body: data
@@ -52,61 +53,31 @@ export default function AccountView({ userData, setUserData}) {
 
         const json = await res.json()
         sessionStorage.setItem("profilePicID", json.imageid)
-        router.refresh()
+        setIsModalActive(false)
+        const picID = sessionStorage.getItem("profilePicID")
+        setProfilePicSrc(`${databaseURL}/image/${picID}`)
         */
     }
 
     useEffect(() => {
-        /**
-         * fetch active subscription data here
-         * e.g.
-         * const res = await fetch(...)
-         * setSubscriptions(res)
-         */
-        setSubscriptions([1, 2])
         const picID = sessionStorage.getItem("profilePicID")
         setProfilePicSrc(`${databaseURL}/image/${picID}`)
+        loadDonationAmt()
     }, [])
+
+    const loadDonationAmt = async () => {
+        const userID = sessionStorage.getItem("userID")
+        const pageDataResponse = await fetch(`${databaseURL}/page/viewpage/${userID}`)
+        if (!pageDataResponse.ok) return
+
+        const { id } = await pageDataResponse.json()
+        const pageAmtResponse = await fetch(`${databaseURL}/pageamt/${id}/`)
+        const { total_donation } = await pageAmtResponse.json()
+        setDonationAmt(total_donation)
+    }
 
     return (
         <>
-        {isModalActive && (
-            <div 
-                className={styles.modalContainer}
-                onClick={() => setIsModalActive(!isModalActive)}
-            >
-                <div 
-                    className={styles.formContainer}
-                    onClick={stopClickPropogation}
-                >
-                    <form
-                        className={styles.updateImgForm}
-                        method="POST"
-                        onSubmit={submitForm}
-                    >
-                        <h2>Update profile image</h2>
-                        <ProfileImage src={newProfilePic} alt={"profile pic to be uploaded"}/>
-                        <div>
-                            <label htmlFor="image" className={styles.label}>
-                                Select new profile image
-                            </label>
-                            <br />
-                            <input 
-                                type="file" 
-                                name="image" 
-                                accept="image/*" 
-                                capture="user" 
-                                onChange={updateProfilePic}
-                            />
-                        </div>
-                        <button className={styles.formButton}>
-                            Update profile image
-                        </button>
-                    </form>
-                </div>
-            </div>
-        )}
-
         <div className={styles.start}>
             <div className={styles.imageBox}>
                 <ProfileImage src={profilePicSrc} alt={"your profile picture"} />
@@ -130,17 +101,18 @@ export default function AccountView({ userData, setUserData}) {
         </div>
 
         <div className={styles.middle}>
-            {
-                subscriptions.length == 0 ? (
-                    <div className={styles.noSubscriptionsContainer}>
-                        <em>No active subscriptions</em>
-                    </div>
-                ) : (
-                    subscriptions.map( e => {
-                        return <Subscription key={e} id={e} />
-                    })
-                )
-            }
+            {donationAmt == -1 ? (
+                <div>
+                    <p>Create a donation page to view page statistics.</p>
+                </div>
+            ) : (
+                <>
+                <h3>{userData.username}'s donation page</h3>
+                <div>
+                    <p>Total donation amount: {donationAmt} points</p>
+                </div>
+                </>
+            )}
         </div>
 
         <div className={styles.end}>
@@ -151,6 +123,43 @@ export default function AccountView({ userData, setUserData}) {
                 Delete Account
             </button>
         </div>
+
+        {isModalActive && (
+            <div 
+                className={styles.modalContainer}
+                onClick={() => setIsModalActive(!isModalActive)}
+            >
+                <div 
+                    className={styles.formContainer}
+                    onClick={stopClickPropogation}
+                >
+                    <form
+                        className={styles.updateImgForm}
+                        method="POST"
+                        onSubmit={submitForm}
+                    >
+                        <h2>Update profile image</h2>
+                        <ProfileImage src={newProfilePic ?? profilePicSrc} alt={"profile pic to be uploaded"}/>
+                        <div>
+                            <label htmlFor="image" className={styles.label}>
+                                Select new profile image
+                            </label>
+                            <br />
+                            <input 
+                                type="file" 
+                                name="image" 
+                                accept="image/*" 
+                                capture="user" 
+                                onChange={updateProfilePic}
+                            />
+                        </div>
+                        <button className={styles.formButton}>
+                            Update profile image
+                        </button>
+                    </form>
+                </div>
+            </div>
+        )}
         </>
     )
 }

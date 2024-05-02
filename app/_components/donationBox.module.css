@@ -20,3 +20,13 @@
 .donateButton:hover {
     cursor: pointer;
 }
+
+.errorMsg {
+    color: firebrick;
+    font-size: smaller;
+}
+
+.donatedMsg {
+    color: olivedrab;
+    font-size: smaller;
+}

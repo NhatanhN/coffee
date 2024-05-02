@@ -33,7 +33,6 @@ export default function Subscription({ id }) {
                 <div className={styles.description}>
                     <Link 
                         className={styles.link}
-                        target="_blank"
                         href={`${websiteRoot}/donate/${data.pageID}`}
                     >
                         <h4 className={styles.title}>{data.pageTitle}</h4>

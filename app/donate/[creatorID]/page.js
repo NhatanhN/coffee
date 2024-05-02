@@ -7,7 +7,7 @@ export default function DonationPageRoute({ params }) {
     return (
         <>
         <Header />
-        <DonationPage id={params.creatorID}/>
+        <DonationPage creatorID={params.creatorID}/>
         </>
     )
 }

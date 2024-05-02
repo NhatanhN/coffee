@@ -12,7 +12,6 @@ export default function Donation({ id }) {
     useEffect(() => {
         /**
          * fetch data here
-         */
         setData({
             pageID: 1,
             pageTitle: "beep boop's donation page",
@@ -20,6 +19,7 @@ export default function Donation({ id }) {
             date: "December 17, 1995 03:24:00",
             price: 5,
         })
+         */
         //loadData()
     }, [])
 

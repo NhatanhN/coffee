@@ -32,3 +32,8 @@
     background-color: var(--hover-gray);
     width: fit-content;
 }
+
+.errorMsg {
+    color: firebrick;
+    font-size: smaller;
+}

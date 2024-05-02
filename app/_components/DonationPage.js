@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-
 import ProfileImage from "./ProfileImage"
 import DonationBox from "./DonationBox"
 import { databaseURL } from "../constants"
@@ -12,11 +11,11 @@ export default function DonationPage({ creatorID, enableEdit }) {
     const [isEditing, setIsEditing] = useState()
     const [newImage, setNewImage] = useState()
     const [showButtons, setShowButtons] = useState()
-    
+    const [notFound, setNotFound] = useState()
 
-    useEffect(() => {
-        getPageData()
-    }, [])
+   useEffect(() => {
+       getPageData()
+   }, [])
 
     const getPageData = async () => {
         const res = await fetch(`${databaseURL}/page/viewpage/${creatorID}/`, {
@@ -28,10 +27,12 @@ export default function DonationPage({ creatorID, enableEdit }) {
             json = {
                 ...json,
                 bannerURL: `${databaseURL}/image/${json.imageid}/`,
-                creatorImageURL: `${databaseURL}/image/${json.imageid}/`
+                creatorImageURL: `${databaseURL}/image/${json.creator_profile_id}/`
             }
             setPageData(json)
             setUneditedPageData(json)
+        } else {
+            setNotFound(true)
         }
     }
     
@@ -51,6 +52,7 @@ export default function DonationPage({ creatorID, enableEdit }) {
         const res = await fetch(`${databaseURL}/page/deletepage/${pageID}/`, {
             method: "DELETE"
         })
+        location.reload()
     }
 
     const changeTitle = (e) => {
@@ -79,9 +81,13 @@ export default function DonationPage({ creatorID, enableEdit }) {
     
     return (
         <>
-        {pageData == null ? (
+        {notFound ? (
             <div className={styles.loadingContainer}>
-                <p>loading page</p>
+                <p>Donation page not found.</p>
+            </div>
+        ) : pageData == null ? (
+            <div className={styles.loadingContainer}>
+                <p>Loading page.</p>
             </div>
         ) : (
             <>
@@ -184,8 +190,8 @@ export default function DonationPage({ creatorID, enableEdit }) {
                     <DonationBox
                         pageID = {pageData.id}
                         userData={{
-                            id: pageData.creatorID,
-                            username: pageData.creatorUsername    
+                            id: pageData.creatorid,
+                            username: pageData.creator_username  
                         }}
                         disabled={enableEdit}
                     />

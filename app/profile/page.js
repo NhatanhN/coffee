@@ -52,8 +52,9 @@ export default function Profile() {
                     onClick={() => setActiveView(2)}
                     style={activeView == 2 ? styleActive : {}}
                 >
-                    Coffee
+                    Donation Page
                 </button>
+                {/*
                 <button 
                     className={styles.navButton}
                     onClick={() => setActiveView(3)}
@@ -61,6 +62,7 @@ export default function Profile() {
                 >
                     Transaction History
                 </button>
+                */}
             </nav>
 
             <section className={styles.content}>
