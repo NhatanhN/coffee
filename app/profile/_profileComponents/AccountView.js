@@ -7,11 +7,12 @@ import { useState, useEffect } from "react"
 import { databaseURL } from "@/app/constants"
 
 export default function AccountView({ userData, setUserData}) {
-    const [donationAmt, setDonationAmt] = useState(-1)
     const [isModalActive, setIsModalActive] = useState(false)
     const [newProfilePic, setNewProfilePic] = useState()
     const [profilePicSrc, setProfilePicSrc] = useState()
-
+    const [donationAmt, setDonationAmt] = useState(-1)
+    const [subscriptionAmt, setSubscriptionAmt] = useState(-1)
+    
     const router = useRouter()
 
     const onSignout = () => {
@@ -58,14 +59,8 @@ export default function AccountView({ userData, setUserData}) {
         setProfilePicSrc(`${databaseURL}/image/${picID}`)
         */
     }
-
-    useEffect(() => {
-        const picID = sessionStorage.getItem("profilePicID")
-        setProfilePicSrc(`${databaseURL}/image/${picID}`)
-        loadDonationAmt()
-    }, [])
-
-    const loadDonationAmt = async () => {
+    
+    const loadDonationStats = async () => {
         const userID = sessionStorage.getItem("userID")
         const pageDataResponse = await fetch(`${databaseURL}/page/viewpage/${userID}`)
         if (!pageDataResponse.ok) return
@@ -74,7 +69,17 @@ export default function AccountView({ userData, setUserData}) {
         const pageAmtResponse = await fetch(`${databaseURL}/pageamt/${id}/`)
         const { total_donation } = await pageAmtResponse.json()
         setDonationAmt(total_donation)
+
+        const subViewResponse = await fetch(`${databaseURL}/subscriptionview/${id}`)
+        const { total_subscription } = await subViewResponse.json()
+        setSubscriptionAmt(total_subscription)
     }
+
+    useEffect(() => {
+        const picID = sessionStorage.getItem("profilePicID")
+        setProfilePicSrc(`${databaseURL}/image/${picID}`)
+        loadDonationStats()
+    }, [])
 
     return (
         <>
@@ -102,15 +107,14 @@ export default function AccountView({ userData, setUserData}) {
 
         <div className={styles.middle}>
             {donationAmt == -1 ? (
-                <div>
+                <div className={styles.middleHeader}>
                     <p>Create a donation page to view page statistics.</p>
                 </div>
             ) : (
                 <>
-                <h3>{userData.username}'s donation page</h3>
-                <div>
-                    <p>Total donation amount: {donationAmt} points</p>
-                </div>
+                <h3 className={styles.middleHeader}>{userData.username}'s donation page</h3>
+                <p>Total points from donations: {donationAmt} points</p>
+                <p>Total number of subscriptions: {subscriptionAmt}</p>
                 </>
             )}
         </div>

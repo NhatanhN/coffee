@@ -60,9 +60,14 @@
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
-    padding-top: 10px;
+    padding: 10px 15% 0 15%;
+}
+
+.middleHeader {
+    align-self: center;
+    margin-bottom: 10px;
 }
 
 .end {
