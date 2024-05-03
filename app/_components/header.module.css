@@ -121,6 +121,8 @@
     padding: 30px;
     color: #111111;
     background-color: var(--color-light-one);
+    display: flex;
+    flex-direction: column;
 }
 
 .modalFormContainer {
@@ -136,4 +138,32 @@
     align-items: center;
     padding-top: 15px;
     animation: fadein 1.5s infinite alternate-reverse;
+}
+
+.searchEntry {
+    text-decoration: none;
+    border: 1px gray solid;
+    margin: 8px;
+    padding: 4px;
+    font-size: smaller;
+    border-radius: 5px;
+    transition: background-color .15s;
+}
+
+.searchEntry:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.searchLink {
+    text-decoration: none;
+}
+
+.searchLink:visited {
+    color: unset;
+}
+
+.searchResultsContainer {
+    flex-grow: 1;
+    overflow-y: scroll;
 }

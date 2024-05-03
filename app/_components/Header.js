@@ -4,6 +4,7 @@ import Link from "next/link"
 import styles from "./header.module.css"
 import "../globals.css"
 import { useState, useEffect } from "react"
+import { databaseURL } from "../constants"
 
 /**
  * @prop {String} username | 
@@ -23,12 +24,20 @@ export default function Header( { enableSearchBar } ) {
     const handleSearch = async (e) => {
         e.preventDefault() 
 
-
-        console.log("search button pressed")
         setIsSearchResultsLoading(true)
+        const query = e.target.q.value
         //fetch results
-        //setIsSearchResultsLoading(false)
-        //setSearchResults(...)
+        const res = await fetch(`${databaseURL}/page/searchpage/${query}/`)
+        
+        if (!res.ok) {
+            setSearchResults([])
+            setIsSearchResultsLoading(false)
+            return
+        }
+
+        const json = await res.json()
+        setSearchResults(json)
+        setIsSearchResultsLoading(false)
     }
 
     const toggleModal = () => {
@@ -91,6 +100,7 @@ export default function Header( { enableSearchBar } ) {
                     <div className={styles.searchContainer} onClick={stopClickPropogation}>
                         <form className={styles.modalFormContainer} onSubmit={handleSearch}>
                             <input 
+                                name="q"
                                 type="text"
                                 placeholder="Search for a donation page"
                                 className={styles.input + " " + styles.modalFormInput}
@@ -98,15 +108,30 @@ export default function Header( { enableSearchBar } ) {
                             <button className={styles.formButton}>🔍</button>
                         </form>
 
-                        <div>
+                        <div className={styles.searchResultsContainer}>
                             {isSearchResultsLoading ? (
                                 <p className={styles.searchLoading}>loading ⌛</p>
+                            ) : searchResults[0] == undefined ? (
+                                <div>
+                                    {/* search results should be empty here */}
+                                    <p>No search results.</p>
+                                </div>
                             ) : (
-                                <ul>
-                                    {
-                                        //searchResults.map(...)
-                                    }
-                                </ul>
+                                <div>
+                                {searchResults.map(e => 
+                                    <div key={e.id} className={styles.searchEntry}>
+                                        <Link 
+                                            href={`/donate/${e.creatorid}`} 
+                                            className={styles.searchLink}
+                                        >
+                                            <div>
+                                                <strong>{e.title}</strong>
+                                                <p>{e.creator_username}</p>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                )}
+                                </div>
                             )}
                         </div>
                     </div>
